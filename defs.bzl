@@ -2,10 +2,10 @@ load("@rules_haskell//haskell:defs.bzl", "haskell_binary")
 
 PACKAGES = ["base", "text", "containers", "attoparsec"]
 
-def aoc():
+def aoc_day(day):
     haskell_binary(
-        name = "main",
-        srcs = ["Main.hs"],
-        deps = ["@stackage//{}".format(it) for it in PACKAGES],
-        data = native.glob(["*.txt"]),
+        name = "d{}".format(day),
+        srcs = ["Day{}.hs".format(day)],
+        deps = ["//:lib"] + ["@stackage//{}".format(it) for it in PACKAGES],
+        data = native.glob(["{}/*.txt".format(day)]),
     )
