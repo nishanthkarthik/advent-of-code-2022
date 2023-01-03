@@ -15,4 +15,4 @@ haskell_library(
     visibility = ["//visibility:public"],
 )
 
-[aoc_day(it + 1) for it in range(1)]
+[aoc_day(it + 1) for it in range(2)]
