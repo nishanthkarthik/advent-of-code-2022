@@ -4,13 +4,9 @@ import Lib (parseInput)
 import Data.Bifunctor (second)
 
 data Play = Rock | Paper | Scissor deriving (Show, Enum, Eq)
-data Outcome = Lose | Draw | Win deriving (Show, Enum, Eq)
 
 gt :: Play -> Play -> Bool
-gt Paper Rock = True
-gt Rock Scissor = True
-gt Scissor Paper = True
-gt _ _ = False
+gt a b = 1 == mod (fromEnum a - fromEnum b) 3
 
 parseMove :: A.Parser Play
 parseMove = do
@@ -44,6 +40,8 @@ play1 (them, n)
     | us `gt` them = 6 + n + 1
     | otherwise = 0 + n + 1
     where us = toEnum n
+
+data Outcome = Lose | Draw | Win deriving (Show, Enum, Eq)
 
 play2 :: (Play, Int) -> Int
 play2 (them, n) = case outcome of
