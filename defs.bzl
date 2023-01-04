@@ -1,6 +1,6 @@
 load("@rules_haskell//haskell:defs.bzl", "haskell_binary")
 
-PACKAGES = ["base", "text", "containers", "attoparsec"]
+PACKAGES = ["base", "text", "containers", "attoparsec", "split"]
 
 def aoc_day(day):
     haskell_binary(

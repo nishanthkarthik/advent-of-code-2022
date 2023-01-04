@@ -12,7 +12,6 @@ haskell_library(
     name = "lib",
     srcs = ["Lib.hs"],
     deps = ["@stackage//{}".format(it) for it in PACKAGES],
-    visibility = ["//visibility:public"],
 )
 
-[aoc_day(it + 1) for it in range(2)]
+[aoc_day(it + 1) for it in range(3)]
