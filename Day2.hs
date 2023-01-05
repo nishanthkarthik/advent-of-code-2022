@@ -28,10 +28,8 @@ parseSecond = do
 
 parser :: A.Parser [(Play, Int)]
 parser = A.many' $ do
-    m1 <- parseMove
-    A.space
-    m2 <- parseSecond
-    A.endOfLine
+    m1 <- parseMove <* A.space
+    m2 <- parseSecond <* A.endOfLine
     return (m1, m2)
 
 play1 :: (Play, Int) -> Int

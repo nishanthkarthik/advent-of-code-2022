@@ -4,13 +4,7 @@ import Lib (parseInput)
 import Data.List (sortBy)
 
 parser :: A.Parser [[Int]]
-parser = A.many' $ do
-    ds <- A.many' $ do
-        d <- A.decimal
-        A.endOfLine
-        return d
-    A.endOfLine
-    return ds
+parser = A.many' (A.many' (A.decimal <* A.endOfLine) <* A.endOfLine)
 
 solve :: Int -> [[Int]] -> Int
 solve n = sum . take n . sortBy (flip compare) . map sum
