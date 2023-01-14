@@ -14,4 +14,4 @@ haskell_library(
     deps = ["@stackage//{}".format(it) for it in PACKAGES],
 )
 
-[aoc_day(it + 1) for it in range(13)]
+[aoc_day(it + 1) for it in range(14)]

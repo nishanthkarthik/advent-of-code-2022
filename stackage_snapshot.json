@@ -1,6 +1,6 @@
 {
-  "__GENERATED_FILE_DO_NOT_MODIFY_MANUALLY": 1475914115,
-  "all-cabal-hashes": "https://raw.githubusercontent.com/commercialhaskell/all-cabal-hashes/760aba73563f129a8e52d1ffcef352704ff86d12",
+  "__GENERATED_FILE_DO_NOT_MODIFY_MANUALLY": 1347745601,
+  "all-cabal-hashes": "https://raw.githubusercontent.com/commercialhaskell/all-cabal-hashes/866124eac5b9a0c1d5c64d3f71fbf1c5e9216c4d",
   "resolved": {
     "array": {"dependencies":[],"location":{"type":"core"},"name":"array","version":"0.5.4.0"},
     "attoparsec": {"dependencies":["array","base","bytestring","containers","deepseq","ghc-prim","scientific","text","transformers"],"location":{"type":"hackage","url":"https://hackage.haskell.org/package/attoparsec-0.14.4/attoparsec-0.14.4.tar.gz"},"name":"attoparsec","pinned":{"url":["https://hackage.haskell.org/package/attoparsec-0.14.4/attoparsec-0.14.4.tar.gz","https://s3.amazonaws.com/hackage.fpcomplete.com/package/attoparsec-0.14.4.tar.gz"],"sha256":"3f337fe58624565de12426f607c23e60c7b09c86b4e3adfc827ca188c9979e6c","cabal-sha256":"c0569d86c02cadd403017ea414dcb5e4f7de5380de0d8a92b9337cad84cd5e02"},"version":"0.14.4"},
@@ -18,6 +18,7 @@
     "split": {"dependencies":["base"],"location":{"type":"hackage","url":"https://hackage.haskell.org/package/split-0.2.3.5/split-0.2.3.5.tar.gz"},"name":"split","pinned":{"url":["https://hackage.haskell.org/package/split-0.2.3.5/split-0.2.3.5.tar.gz","https://s3.amazonaws.com/hackage.fpcomplete.com/package/split-0.2.3.5.tar.gz"],"sha256":"bf8aa8d610354a2b576946a6c838251ec5988c8374100638e6b2604513b93159","cabal-sha256":"f472fa7019647cacac3267742a6f7ac0a5c816f9890e80e4b826cd937436de87"},"version":"0.2.3.5"},
     "template-haskell": {"dependencies":[],"location":{"type":"core"},"name":"template-haskell","version":"2.18.0.0"},
     "text": {"dependencies":[],"location":{"type":"core"},"name":"text","version":"1.2.5.0"},
-    "transformers": {"dependencies":[],"location":{"type":"core"},"name":"transformers","version":"0.5.6.2"}
+    "transformers": {"dependencies":[],"location":{"type":"core"},"name":"transformers","version":"0.5.6.2"},
+    "unordered-containers": {"dependencies":["base","deepseq","hashable","template-haskell"],"location":{"type":"hackage","url":"https://hackage.haskell.org/package/unordered-containers-0.2.19.1/unordered-containers-0.2.19.1.tar.gz"},"name":"unordered-containers","pinned":{"url":["https://hackage.haskell.org/package/unordered-containers-0.2.19.1/unordered-containers-0.2.19.1.tar.gz","https://s3.amazonaws.com/hackage.fpcomplete.com/package/unordered-containers-0.2.19.1.tar.gz"],"sha256":"1b27bec5e0d522b27a6029ebf4c4a6d40acbc083c787008e32fb55c4b1d128d2","cabal-sha256":"db11042bb0356c0adea277d0794743829125b4c99455af6af2bd5f7bd5e88a39"},"version":"0.2.19.1"}
   }
 }
