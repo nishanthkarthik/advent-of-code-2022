@@ -1,6 +1,6 @@
 load("@rules_haskell//haskell:defs.bzl", "haskell_binary")
 
-PACKAGES = ["array", "base", "text", "containers", "attoparsec", "split", "unordered-containers"]
+PACKAGES = ["array", "base", "text", "containers", "attoparsec", "split", "parallel"]
 
 def aoc_day(day):
     haskell_binary(
@@ -8,4 +8,5 @@ def aoc_day(day):
         srcs = ["Day{}.hs".format(day)],
         deps = ["//:lib"] + ["@stackage//{}".format(it) for it in PACKAGES],
         data = native.glob(["{}/*.txt".format(day)]),
+        ghcopts = ["-threaded"],
     )
