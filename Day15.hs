@@ -2,7 +2,8 @@
 
 import qualified Data.Attoparsec.Text as A
 import Data.Ix (inRange)
-import Data.List (sortBy, nub)
+import Data.List (sortBy)
+import Data.List.Extra (nubOrd)
 import qualified Data.Map.Lazy as M
 import Data.Maybe (mapMaybe)
 import Lib (parseInput)
@@ -11,8 +12,8 @@ type V2 = (Int, Int)
 
 type Input = M.Map V2 V2
 
-manhattan :: (V2, V2) -> Int
-manhattan ((a, b), (c, d)) = abs (a - c) + abs (b - d)
+manhattan :: V2 -> V2 -> Int
+manhattan (a, b) (c, d) = abs (a - c) + abs (b - d)
 
 parser :: A.Parser Input
 parser =
@@ -28,7 +29,7 @@ parser =
 
 intersect :: Int -> (V2, V2) -> Maybe V2
 intersect yref (s@(x, y), b) = if dist >= 0 then Just bound else Nothing
-    where dist = manhattan (s, b) - abs (yref - y)
+    where dist = manhattan s b - abs (yref - y)
           bound = (x - dist, x + dist)
 
 overlap :: V2 -> V2 -> [V2]
@@ -58,16 +59,24 @@ fuseOverlaps v = pairs markers
           compTag a b = if numOrd == EQ then compare a b else numOrd
             where numOrd = compare (fromTag a) (fromTag b)
 
+pairsOf :: [a] -> [a] -> [(a, a)]
+pairsOf x y = [(a, b) | a <- x, b <- y]
+
 main :: IO ()
 main = do
     input <- parseInput parser
     let yref = 2000000
     let intervals y = (fuseOverlaps . mapMaybe (intersect y) . M.toList) input
-        beacons = nub (M.elems input)
+        beacons = nubOrd (M.elems input)
         solve1 = map (\(a, b) -> b - a + 1) $ intervals yref
         beaconOverlaps = [fromEnum $ inRange r m | r <- intervals yref, (m, n) <- beacons, n == yref]
     print (sum solve1 - sum beaconOverlaps)
 
-    let (y2, l : r : _) = head [(y, intervals y) | y <- [0..4000000], length (intervals y) == 2]
-        solve2 = y2 + 2000000 * (fst r + snd l)
+    let lines1c = [y - x + manhattan s b + c | (s@(x, y), b) <- M.assocs input, c <- [-1, 1]]
+        lines2c = [y + x + manhattan s b + c | (s@(x, y), b) <- M.assocs input, c <- [-1, 1]]
+        combos = nubOrd $ map ((`div` 2) . uncurry (+)) $ pairsOf lines1c lines2c
+        -- if a window is open between two intervals, there should be exactly one element in between
+        xions = [(y, intervals y) | y <- combos, length (intervals y) == 2, 2 + snd (head $ intervals y) == fst (intervals y !! 1)]
+        (y, [l, r]) = head xions
+        solve2 = y + 2000000 * (fst r + snd l)
     print solve2
