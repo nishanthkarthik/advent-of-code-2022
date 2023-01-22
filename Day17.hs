@@ -4,8 +4,6 @@ import Lib (parseInput)
 import qualified Data.Set as S
 import Data.Ix (inRange)
 
-import Debug.Trace
-
 data Push = L | R deriving (Show, Eq)
 
 parser :: At.Parser [Push]
@@ -30,15 +28,11 @@ showGrid grid = unlines (cells ++ ["-------"])
           toChar idx = if S.member idx grid then '#' else '.'
           cells = [[toChar (x, y) | x <- [0..6]] | y <- [maxy+1,maxy..0]]
 
-drawGrid :: Grid -> IO ()
-drawGrid = putStrLn . showGrid
-
 start :: Grid -> Rock -> (Grid, Rock)
-start grid rock = (pruned, rshift)
+start grid rock = (pruned, S.map shift rock)
     where maxy = S.foldl max (-1) $ S.map snd grid
           minx = S.foldl min maxBound $ S.map fst grid
           shift (x, y) = (x + 2, y + maxy + 4)
-          rshift = S.map shift rock
           pruned = S.filter (\(x, y) -> y >= maxy - 50) grid
 
 type Delta = Idx
@@ -59,17 +53,16 @@ main = do
     let pushstream = cycle input
         rocksfixed n = take n (cycle rocks)
         step (g, ps) r = let (g' ,r') = start g r in collide (g', ps) r'
-        sim n = fst $ foldl step (S.empty, pushstream) (rocksfixed n)
-        solve n = 1 + (S.foldl max 0 . S.map snd) (sim n)
-        solve1 = 1 + (S.foldl max 0 . S.map snd) (sim 2022)
         scan1 = map ((1 +) . S.foldl max 0 . S.map snd . fst) $ scanl step (S.empty, pushstream) (cycle rocks)
-    print (scan1 !! 20000)
+    print (scan1 !! 2022)
 
-    let n = 1000000000000
-        len1 = 209
-        sum1 = 348
-        step2 = 1745
-        sum2 = 2783
+    let window = length rocks * length input
+        isCycle xs w = take w (drop w xs) == take w xs
+        findCycle offset xs = head $ filter (isCycle (drop window xs)) [20..]
+        fixedSeq = window
         deltas = zipWith (-) (tail scan1) scan1
-        solve2 = sum1 + ((n - len1) `div` step2) * sum2 + sum (take (1 + (n - len1) `mod` step2) (drop len1 deltas))
-    print solve2
+        sumFixedSeq = (sum . take fixedSeq) deltas
+        cycleLength = findCycle window deltas
+        sumCycleLength = (sum . take cycleLength . drop fixedSeq) deltas
+        solve2' n = sumFixedSeq + div (n - fixedSeq) cycleLength * sumCycleLength + sum (take (1 + mod (n - fixedSeq) cycleLength) (drop fixedSeq deltas))
+    print $ solve2' 1000000000000
