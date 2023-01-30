@@ -14,4 +14,11 @@ haskell_library(
     deps = ["@stackage//{}".format(it) for it in PACKAGES],
 )
 
-[aoc_day(it + 1) for it in range(18)]
+config_setting(
+    name = "profiling",
+    values = {
+        "compilation_mode": "dbg",
+    }
+)
+
+[aoc_day(it + 1) for it in range(19)]

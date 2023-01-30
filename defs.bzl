@@ -1,6 +1,12 @@
 load("@rules_haskell//haskell:defs.bzl", "haskell_binary")
 
-PACKAGES = ["array", "base", "text", "containers", "attoparsec", "split", "parallel", "extra", "MemoTrie"]
+PACKAGES = ["array", "base", "text", "containers", "attoparsec", 
+            "split", "parallel", "extra", "MemoTrie"]
+
+COMMON_FLAGS = [        
+    "-threaded", 
+    "-rtsopts",
+]
 
 def aoc_day(day):
     haskell_binary(
@@ -8,5 +14,8 @@ def aoc_day(day):
         srcs = ["Day{}.hs".format(day)],
         deps = ["//:lib"] + ["@stackage//{}".format(it) for it in PACKAGES],
         data = native.glob(["{}/*.txt".format(day)]),
-        ghcopts = ["-threaded", "-rtsopts"],
+        ghcopts = select({
+            "//:profiling": ["-prof", "-fprof-auto"] + COMMON_FLAGS,
+            "//conditions:default": COMMON_FLAGS
+        }),
     )
