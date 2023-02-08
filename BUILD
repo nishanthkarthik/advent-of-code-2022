@@ -21,4 +21,4 @@ config_setting(
     }
 )
 
-[aoc_day(it + 1) for it in range(24)]
+[aoc_day(it + 1) for it in range(25)]
