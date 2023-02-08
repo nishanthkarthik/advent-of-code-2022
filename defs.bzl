@@ -1,10 +1,10 @@
 load("@rules_haskell//haskell:defs.bzl", "haskell_binary")
 
-PACKAGES = ["array", "base", "text", "containers", "attoparsec", 
-            "split", "parallel", "extra", "MemoTrie"]
+PACKAGES = ["array", "base", "text", "containers", "attoparsec",
+            "split", "parallel", "extra"]
 
-COMMON_FLAGS = [        
-    "-threaded", 
+COMMON_FLAGS = [
+    "-threaded",
     "-rtsopts",
 ]
 
