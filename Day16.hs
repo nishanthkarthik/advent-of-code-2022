@@ -15,7 +15,6 @@ import Control.Monad
 import Control.Monad.ST (runST)
 import Data.STRef
 import qualified Data.Array as Ar
-import Data.MemoTrie (memo3, mup)
 
 type Input = [(T.Text, (Int, [T.Text]))]
 type Graph = IM.IntMap (Int, [Int])

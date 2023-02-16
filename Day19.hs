@@ -1,7 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE BangPatterns #-}
 
-import Lib
+import Lib (parseInput)
 
 import qualified Data.Attoparsec.Text as At
 import qualified Data.Map.Strict as M
@@ -12,7 +12,6 @@ import Data.Maybe (fromMaybe)
 import Control.Parallel.Strategies
 import Text.Printf (printf)
 import Data.List (foldl')
-import Data.MemoTrie (memo3)
 
 data V4 a = V4 { vx :: !a, vy :: !a, vz :: !a, vw :: !a } deriving (Eq)
 
